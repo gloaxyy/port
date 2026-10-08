@@ -1,20 +1,4 @@
--- Best Speed Leaderboard (Server-side)
--- Tracks each player's highest Speed ever achieved ("BestSpeed") and shows the
--- global TOP SPEED ranking on the GoldenLeaderboard at the treadmill exits.
---
--- ARCHITECTURE NOTES (matches the game's existing systems):
---   * Speed is a player attribute written by Treadmillsystem (grows on treadmills)
---     and reset to 16 by SellHandler when sold. We only READ it - never write it.
---   * Speed persists via DataStore "TreadmillSpeed_V1" (per-UserId key, load on
---     join / save on leave). BestSpeed mirrors that pattern with its own
---     OrderedDataStore "TreadmillBestSpeed_V1" (needed for global ranking).
---   * SECURITY: everything here is server-authoritative. No remotes exist for
---     BestSpeed, so clients can never submit scores. Ranking comes exclusively
---     from the OrderedDataStore via GetSortedAsync.
---   * No DataStore spam: saves are change-triggered, debounced on a 30s per-player
---     cooldown, flushed on leave; the global board re-queries the OrderedDataStore
---     at most once per 60s and merges in-server players' live BestSpeed between
---     queries, so new records show on the board within seconds.
+
 
 local Players = game:GetService("Players")
 local DataStoreService = game:GetService("DataStoreService")
