@@ -1,15 +1,4 @@
--- Croc Carry & Chase Handler (Server-side)
---  * Pick up a BabyCrocodile (ProximityPrompt) and carry it on your head.
---  * While you carry one, Crocodile1 hunts you down. If it touches you, you are
---    ragdolled and the BabyCrocodile snaps back to its original spot.
---  * Bring the baby inside YOUR plot (base) and it stays there, paying out coins
---    every second. A fresh BabyCrocodile respawns at the original spot.
---  * The big croc never chases into, or enters, any plot or safe zone.
---  * LIMIT SHOP (built in): how many crocs you can keep in your plot starts at 5 and
---    can be bought with coins or Robux. See LIMIT_CONFIG and the LIMIT SHOP section.
---
--- SAFE ZONES: any plot counts automatically. To add extra safe zones, either name a
--- Part/Model "SafeZone" (anywhere in Workspace) or give it the CollectionService tag "SafeZone".
+
 
 local Players = game:GetService("Players")
 local PathfindingService = game:GetService("PathfindingService")
