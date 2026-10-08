@@ -1,16 +1,4 @@
--- Coins Leaderboard (Server-side)
--- Global TOP COINS ranking on the CrystalLeaderboard: shows each player's
--- highest coin balance ever reached ("PeakCoins"), so the board is a flex
--- that survives spending and rebirth resets.
---
--- ARCHITECTURE (mirrors BestSpeedLeaderboard):
---   * Server-authoritative: coins are read from the leaderstats Coins value
---     (the same one RebirthService/TrialsService read). No remotes - clients
---     can never submit scores.
---   * Persisted via OrderedDataStore "CrocCoinsBoard_V1" (per-UserId key).
---   * No DataStore spam: saves debounced (30s per-player cooldown), flushed on
---     leave and BindToClose; the board re-queries the store at most once per
---     60s and merges in-server players' live peak between queries.
+
 
 local Players = game:GetService("Players")
 local DataStoreService = game:GetService("DataStoreService")
