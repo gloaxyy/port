@@ -1,6 +1,4 @@
--- AdminCommandService: server-side admin spawn, carry & place, plot banking, announcements
--- SERVER = this server only. GLOBAL = every server in the game (MessagingService).
--- Add new admin ids here AND in StarterPlayerScripts/AdminCommandBar.
+
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
