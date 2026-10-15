@@ -11,7 +11,7 @@ local BOARD_REFRESH = 5
 local SAVE_COOLDOWN = 30
 local FLUSH_INTERVAL = 10
 
--- CrystalLeaderboard front face (flip to Back if the text shows on the wrong side)
+
 local BOARD_FACE = Enum.NormalId.Front
 
 local coinStore
@@ -24,9 +24,7 @@ else
 	warn("[CoinsBoard] OrderedDataStore unavailable: " .. tostring(storeResult))
 end
 
---------------------------------------------------
--- FIND THE DISPLAY PANEL (CrystalLeaderboard)
---------------------------------------------------
+
 
 local boardModel = workspace:FindFirstChild("CrystalLeaderboard", true)
 local waited = 0
@@ -55,9 +53,7 @@ if not panelPart then
 	warn("[CoinsBoard] CrystalLeaderboard display panel not found - leaderboard UI disabled")
 end
 
---------------------------------------------------
--- BOARD UI (built once on the panel)
---------------------------------------------------
+
 
 local GOLD = Color3.fromRGB(255, 200, 40)
 local CREAM = Color3.fromRGB(255, 244, 214)
