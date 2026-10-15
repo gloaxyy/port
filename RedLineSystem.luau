@@ -1,10 +1,4 @@
---[[
-	RedLineSystem
-	Monitors Class-D players relative to the RedLine boundary (Z = 92.57).
 
-	- Inside  (Z > 92.57): Class-D is invulnerable (invisible ForceField applied).
-	- Outside (Z < 92.57): ForceField removed, gradual damage applied.
-	- Other teams are completely unaffected.
 ]]
 
 local Players = game:GetService("Players")
@@ -13,13 +7,13 @@ local ServerScriptService = game:GetService("ServerScriptService")
 
 local RedLineUtil = require(ServerScriptService:WaitForChild("RedLineUtil"))
 
--- Configuration
+
 local CHECK_INTERVAL = 0.25
 local DAMAGE_PER_CHECK = 0 -- Damage dealt each check when outside the zone
 local TARGET_TEAM = "Class-D"
 local FORCEFIELD_NAME = "RedLineForceField"
 
--- Cache the team instance lookup
+
 local function getTargetTeam(): Team?
 	return Teams:FindFirstChild(TARGET_TEAM)
 end
@@ -69,7 +63,7 @@ local function updatePlayer(player: Player)
 	end
 end
 
--- Handle players who are already in the game
+
 local function updateAllPlayers()
 	for _, player in ipairs(Players:GetPlayers()) do
 		local ok, err = pcall(updatePlayer, player)
