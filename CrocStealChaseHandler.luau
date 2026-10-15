@@ -11,16 +11,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local MarketplaceService = game:GetService("MarketplaceService")
 local ServerStorage = game:GetService("ServerStorage")
 
--- ============================================================
--- CONFIG
--- ============================================================
-local CARRY_SCALE = 0.5               -- baby is shrunk to this fraction of its size while carried
-local CARRY_HEIGHT = 3.2              -- studs above the player's HumanoidRootPart
-local COINS_PER_CROC_PER_SECOND = 5   -- coins each banked croc generates per second
--- Coins per second for each kind of baby croc. Babies not listed here use
--- 5 + 10 * (number - 1): BabyCrocodile1 = 5, 2 = 15, 3 = 25, 4 = 35, and so on.
--- Only add an entry here to make one croc pay differently from the pattern.
-local CROC_RATES = {}
+
 
 local function rateFor(name)
 	local override = CROC_RATES[name]
