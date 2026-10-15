@@ -1,16 +1,4 @@
--- ============================================================
--- MonkeyWarriorBuilder
--- Constructs a stylized 3D Monkey Warrior model matching the reference:
---   • Muscular monkey humanoid with rich brown fur & peach/tan chest & muzzle
---   • Confident smirk expression, thick dark eyebrows, monkey tuft hair & round ears
---   • Wooden curved shoulder armor pads (pauldrons) with feather accents
---   • Leather cross-chest straps, rope-wrapped waist belt, tribal loincloth & green leaves
---   • Arm bands with bone & colored feather charms (orange/blue)
---   • Big two-handed tribal stone/wood blade with wrapped guard resting in right hand
---   • Long curved monkey tail
---   • Sandals / foot wraps with visible toes
---   • Fully rigged with Motor6D joints for walk & combat animation
--- ============================================================
+
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BalloonModels = ReplicatedStorage:WaitForChild("BalloonModels")
@@ -24,7 +12,7 @@ local function buildMonkeyWarrior()
 	local model = Instance.new("Model")
 	model.Name = "MonkeyWarrior"
 
-	-- ¦¦ Color Palette (Matching Reference Art) ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Color Palette (Matching Reference Art) Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local FUR_BROWN       = Color3.fromRGB(138, 78, 46)   -- Rich warm monkey fur
 	local DARK_FUR        = Color3.fromRGB(105, 56, 32)   -- Deeper fur / hair shadow
 	local TAN_SKIN        = Color3.fromRGB(224, 172, 134)  -- Peach/tan muzzle, chest, palms, toes
@@ -46,7 +34,7 @@ local function buildMonkeyWarrior()
 	-- Scale factor: slightly taller/wider than goblin for a heroic monkey warrior build
 	local S = 0.85
 
-	-- ¦¦ HumanoidRootPart ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ HumanoidRootPart Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local root = Instance.new("Part")
 	root.Name = "HumanoidRootPart"
 	root.Size = Vector3.new(2 * S, 2 * S, 1 * S)
@@ -92,7 +80,7 @@ local function buildMonkeyWarrior()
 		return m6d
 	end
 
-	-- ¦¦ Upper Torso (Muscular Chest & Back) ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Upper Torso (Muscular Chest & Back) Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local torso = Instance.new("Part")
 	torso.Name = "UpperTorso"
 	torso.Size = Vector3.new(2.2 * S, 1.8 * S, 1.4 * S)
@@ -170,7 +158,7 @@ local function buildMonkeyWarrior()
 	clMesh.Parent = collarLeaf
 	weldParts(torso, collarLeaf, CFrame.new(-0.6 * S, 0.65 * S, -0.7 * S) * CFrame.Angles(math.rad(25), 0, math.rad(30)))
 
-	-- ¦¦ Lower Torso & Belt System ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Lower Torso & Belt System Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local lowerTorso = Instance.new("Part")
 	lowerTorso.Name = "LowerTorso"
 	lowerTorso.Size = Vector3.new(1.8 * S, 0.9 * S, 1.25 * S)
@@ -292,7 +280,7 @@ local function buildMonkeyWarrior()
 		end
 	end
 
-	-- ¦¦ Articulated Monkey Tail ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Articulated Monkey Tail Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local tailBase = Instance.new("Part")
 	tailBase.Name = "TailBase"
 	tailBase.Size = Vector3.new(0.35 * S, 0.35 * S, 0.8 * S)
@@ -327,7 +315,7 @@ local function buildMonkeyWarrior()
 	ttMesh.Parent = tailTip
 	weldParts(tailCurve1, tailTip, CFrame.new(0.4 * S, 0.45 * S, 0.65 * S) * CFrame.Angles(math.rad(85), math.rad(45), 0))
 
-	-- ¦¦ Expressive Monkey Head ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Expressive Monkey Head Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local head = Instance.new("Part")
 	head.Name = "Head"
 	head.Size = Vector3.new(1.8 * S, 1.7 * S, 1.7 * S)
@@ -485,7 +473,7 @@ local function buildMonkeyWarrior()
 		weldParts(head, hair, CFrame.new(h.pos) * CFrame.Angles(math.rad(h.rot.X), math.rad(h.rot.Y), math.rad(h.rot.Z)))
 	end
 
-	-- ¦¦ Curved Wooden Shoulder Pauldrons (Left & Right) ¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Curved Wooden Shoulder Pauldrons (Left & Right) Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	for _, side in ipairs({ -1, 1 }) do
 		local padBase = Instance.new("Part")
 		padBase.Name = "ShoulderPadBase_" .. (side == -1 and "L" or "R")
@@ -529,7 +517,7 @@ local function buildMonkeyWarrior()
 		end
 	end
 
-	-- ¦¦ Left Arm (Free Swing, Leather Bracer, Bone & Feathers) ¦¦
+	-- Â¦Â¦ Left Arm (Free Swing, Leather Bracer, Bone & Feathers) Â¦Â¦
 	local leftUpperArm = Instance.new("Part")
 	leftUpperArm.Name = "LeftUpperArm"
 	leftUpperArm.Size = Vector3.new(0.85 * S, 1.35 * S, 0.85 * S)
@@ -638,7 +626,7 @@ local function buildMonkeyWarrior()
 	leftPalm.Parent = model
 	weldParts(leftHand, leftPalm, CFrame.new(0, -0.05 * S, -0.3 * S))
 
-	-- ¦¦ Right Arm & Giant Tribal Wood-Stone Blade ¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Right Arm & Giant Tribal Wood-Stone Blade Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	local rightUpperArm = Instance.new("Part")
 	rightUpperArm.Name = "RightUpperArm"
 	rightUpperArm.Size = Vector3.new(0.85 * S, 1.35 * S, 0.85 * S)
@@ -705,7 +693,7 @@ local function buildMonkeyWarrior()
 	rhMesh.Parent = rightHand
 	weldParts(rightLowerArm, rightHand, CFrame.new(0, -0.85 * S, 0))
 
-	-- ¦¦ Huge Stylized Wood & Stone Broadsword (Reference weapon) ¦¦
+	-- Â¦Â¦ Huge Stylized Wood & Stone Broadsword (Reference weapon) Â¦Â¦
 	local swordHandle = Instance.new("Part")
 	swordHandle.Name = "SwordHandle"
 	swordHandle.Size = Vector3.new(0.3 * S, 1.6 * S, 0.3 * S)
@@ -793,7 +781,7 @@ local function buildMonkeyWarrior()
 	btMesh.Parent = bladeTip
 	weldParts(bladeCore, bladeTip, CFrame.new(0, 1.95 * S, 0) * CFrame.Angles(math.rad(180), 0, 0))
 
-	-- ¦¦ Muscular Legs & Tribal Sandals ¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦¦
+	-- Â¦Â¦ Muscular Legs & Tribal Sandals Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦Â¦
 	for _, side in ipairs({ -1, 1 }) do
 		local sideName = (side == -1 and "Left" or "Right")
 
