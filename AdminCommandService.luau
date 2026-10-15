@@ -112,29 +112,8 @@ local heldCrocs = {} -- [croc model] = { holder = Player, conn = Heartbeat conne
 local heldByPlayer = {} -- [player] = croc model they are carrying (one at a time, like regular crocs)
 local bankedCrocs = {} -- [croc model] = { owner = Player, rate = coins per second }
 
--- ============================================================
--- WANDERING: spawned crocs roam around instead of standing frozen,
--- and banked ones wander inside their plot like the regular baby crocs.
--- ============================================================
-local WANDER_SPEED = 5        -- studs/sec
-local WANDER_PAUSE_MIN = 1    -- seconds paused between walks
-local WANDER_PAUSE_MAX = 4
-local WANDER_MARGIN = 4       -- studs kept from plot edges
-local WANDER_RADIUS = 18      -- loose crocs roam this far from where they spawned/dropped
-local WANDER_FREEZE_DISTANCE = 8 -- crocs stand still when a player is this close, so they can be grabbed like the regular crocs
 
-local wandering = {} -- [croc model] = true while its wander loop runs
 
-local function playerNearby(croc, pos)
-	for _, p in ipairs(Players:GetPlayers()) do
-		local c = p.Character
-		local r = c and c:FindFirstChild("HumanoidRootPart")
-		if r and (r.Position - pos).Magnitude <= WANDER_FREEZE_DISTANCE then
-			return true
-		end
-	end
-	return false
-end
 
 local function wanderBoundsAround(position)
 	return {
@@ -194,18 +173,7 @@ local function startWandering(croc, bounds, extents)
 				end
 			end
 
-			-- pause before picking a new destination; stay frozen the whole time a player is close
-			local pause = WANDER_PAUSE_MIN + math.random() * (WANDER_PAUSE_MAX - WANDER_PAUSE_MIN)
-			local waited = 0
-			while wandering[croc] and croc.Parent and waited < pause do
-				if playerNearby(croc, croc:GetPivot().Position) then
-					waited = 0
-					task.wait(0.2)
-				else
-					task.wait(0.1)
-					waited += 0.1
-				end
-			end
+		
 		end
 		wandering[croc] = nil
 	end)
@@ -228,9 +196,7 @@ Players.PlayerAdded:Connect(function(player)
 	end
 end)
 
--- ============================================================
--- COINS (same leaderstats layout CrocStealChaseHandler uses)
--- ============================================================
+
 local function getCoinStat(player)
 	for _, c in ipairs(player:GetChildren()) do
 		if c.Name == "leaderstats" then
@@ -243,12 +209,7 @@ local function getCoinStat(player)
 	return nil
 end
 
--- ============================================================
--- PLOTS (bases): models named "plots" in Workspace, owned via the Owner
--- attribute that PlotManager writes. Banked admin crocs pay coins like
--- the regular baby crocs do.
--- ============================================================
-local plots = {}
+
 for _, m in ipairs(workspace:GetDescendants()) do
 	if m:IsA("Model") and m.Name == "plots" then
 		local minX, maxX, minZ, maxZ = math.huge, -math.huge, math.huge, -math.huge
@@ -284,7 +245,7 @@ local function bankPlotFor(player, pos)
 	return nil
 end
 
--- pay out coins every second for every banked admin croc
+
 task.spawn(function()
 	while true do
 		task.wait(1)
