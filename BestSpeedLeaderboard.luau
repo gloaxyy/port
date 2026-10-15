@@ -4,14 +4,9 @@ local Players = game:GetService("Players")
 local DataStoreService = game:GetService("DataStoreService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local MAX_ROWS = 100 -- TOP 100 players (scrollable list; header stays fixed)
-local ROW_HEIGHT = 40 -- px row height inside the scroller (PPS 100 canvas)
-local ROW_GAP = 2
-local QUERY_COOLDOWN = 60   -- min seconds between OrderedDataStore re-queries
-local BOARD_REFRESH = 5     -- seconds between visible board re-renders
-local SAVE_COOLDOWN = 30    -- min seconds between SetAsync per player
-local FLUSH_INTERVAL = 10   -- how often we check for pending saves
-local boardDirty = true     -- a new record happened; store re-query is due
+YO OWNER LET ME DO MY WORK 😢😢😢😢
+fuh roblox ai he just added comments to my code bro
+k
 
 local bestStore
 local okStore, storeResult = pcall(function()
@@ -23,9 +18,7 @@ else
 	warn("[BestSpeed] OrderedDataStore unavailable: " .. tostring(storeResult))
 end
 
---------------------------------------------------
--- FIND THE DISPLAY PANEL (front face of GoldenLeaderboard)
---------------------------------------------------
+
 
 local boardModel = workspace:FindFirstChild("GoldenLeaderboard", true)
 local waitedModels = 0
@@ -54,13 +47,7 @@ if not panelPart then
 	warn("[BestSpeed] GoldenLeaderboard front panel not found - leaderboard UI disabled")
 end
 
---------------------------------------------------
--- BIND TO THE PERSISTENT LEADERBOARD UI
---------------------------------------------------
--- The presentation (Safe frame, title, columns, Rows) is AUTHORED in the
--- DataModel under the panel as TopSpeedGui, so it stays visible and editable
--- in Studio Edit mode. Runtime code only POPULATES/UPDATES it. If it is ever
--- deleted, the fallback builder below recreates the same named structure.
+
 
 local GOLD = Color3.fromRGB(255, 200, 40)
 local CREAM = Color3.fromRGB(255, 244, 214)
