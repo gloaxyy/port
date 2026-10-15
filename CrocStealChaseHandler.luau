@@ -25,36 +25,8 @@ local function rateFor(name)
 	return COINS_PER_CROC_PER_SECOND
 end
 
--- SIZE TIERS: every baby croc rolls a size when it spawns. Bigger = pays more coins.
--- weightLow  = spawn weight for BabyCrocodile1 (lowest number)
--- weightHigh = spawn weight for the highest-numbered baby (e.g. BabyCrocodile7)
--- Babies in between blend smoothly, so a higher number in the name means better odds
--- of the big tiers. Weights are relative (they don't need to add up to 100).
-local SIZE_TIERS = {
-	{ name = "Normal", size = 1.0, coinMult = 1,   color = Color3.fromRGB(255, 255, 255), weightLow = 78,  weightHigh = 25 },
-	{ name = "Large",  size = 1.4, coinMult = 1.5, color = Color3.fromRGB(120, 220, 120), weightLow = 18,  weightHigh = 35 },
-	{ name = "Huge",   size = 1.8, coinMult = 2.5, color = Color3.fromRGB(90, 170, 255),  weightLow = 3.5, weightHigh = 25 },
-	{ name = "Giant",  size = 2.3, coinMult = 5,   color = Color3.fromRGB(255, 120, 60),  weightLow = 0.5, weightHigh = 15 },
-}
 
-local REPLACEMENT_DELAY = 10          -- seconds until a new baby appears after one is banked
-local OFFLINE_CAP_SECONDS = 7200      -- max seconds of offline earnings paid on rejoin (2 hours)
 
-local BIG_CROC_RUN_SPEED = 29        -- Crocodile1 burst speed; each higher-number croc is 10 faster
-local BIG_CROC_HUNT_SPEED = 18       -- Crocodile1 cruising speed; each higher-number croc is 6 faster
-local CATCH_DISTANCE = 4              -- studs from the big croc's body that counts as "touching"
-local CHASE_TIMEOUT = 90              -- seconds the big croc chases one carrier before giving up
-local CATCH_PAUSE = 2                 -- seconds the big croc pauses after catching someone
-
-local SAFE_PAD = 12                   -- studs around every plot that also count as safe from the croc
-
-local RAGDOLL_TIME = 3                -- seconds a caught player stays ragdolled
-local RAGDOLL_PUSH = 35               -- horizontal knock-back speed
-local RAGDOLL_LIFT = 30               -- upward knock-back speed
-
--- Where banked crocs sit inside a plot (grid around the plot centre)
-local SLOT_COLS, SLOT_ROWS = 3, 5
-local SLOT_SPACING_X, SLOT_SPACING_Z = 12, 11
 
 -- Baby croc wandering in plot
 local WANDER_SPEED = 5              -- studs/sec walking speed
@@ -62,21 +34,7 @@ local WANDER_PAUSE_MIN = 1          -- min seconds paused between walks
 local WANDER_PAUSE_MAX = 4          -- max seconds paused between walks
 local WANDER_MARGIN = 4             -- studs from plot edge to keep crocs
 
--- LIMIT SHOP: how many crocs a player may keep in their plot.
---   DefaultLimit      = what every player starts with
---   MaxLimit          = hard cap, nobody can go above this
---   SetProcessReceipt = set to false if ANOTHER script already sets MarketplaceService.ProcessReceipt
---                       (then call the function CrocLimit.ProcessReceipt(info) from yours - it
---                       returns nil for products that aren't limit packs)
---   Packs: Id = any unique name your UI uses | Add = limit slots given
---          Coins = coin price (nil = not sold for coins)
---          ProductId = Developer Product id from the Creator Hub (0 = not sold for Robux)
---   PRICES AND PRODUCT IDS BELOW ARE PLACEHOLDERS, change them!
-local LIMIT_CONFIG = {
-	DefaultLimit = 5,
-	MaxLimit = 50,
-	DataStoreName = "CrocLimits_v1",
-	SetProcessReceipt = true,
+
 	Packs = {
 		{ Id = "plus1",  Add = 1,  Coins = 2500,  ProductId = 0 },
 		{ Id = "plus3",  Add = 3,  Coins = 10000, ProductId = 0 },
@@ -85,10 +43,7 @@ local LIMIT_CONFIG = {
 	},
 }
 
--- ============================================================
--- STATE
--- ============================================================
-local babies = {}     -- [model] = info
+
 local carrying = {}   -- [player] = info of the baby they hold
 local carriers = {}   -- [player] = tick() when they picked up (big croc targets these)
 local banked = {}     -- [player] = { info, ... } crocs generating coins in their plot
@@ -109,9 +64,7 @@ if not offlineNotice then
 	offlineNotice.Parent = ReplicatedStorage
 end
 
--- ============================================================
--- HELPERS
--- ============================================================
+
 local function flat(v)
 	return Vector3.new(v.X, 0, v.Z)
 end
@@ -253,7 +206,6 @@ local function saveLimit(player, data)
 	return ok
 end
 
--- Adds slots and saves. Only changes the in-memory limit if the save worked.
 local function grantLimit(player, amount, receiptId)
 	local profile = limitProfiles[player]
 	if not profile then return false end
