@@ -6,7 +6,7 @@ local MessagingService = game:GetService("MessagingService")
 local Players = game:GetService("Players")
 
 local ADMIN_IDS = {
-	[1812272806] = true, -- put more user ids here, comma separated
+	[1812272806] = true, 
 	[1674817126] = true,
 	[4743830923] = true,
 	[11573893043] = true,
@@ -17,7 +17,7 @@ local ADMIN_IDS = {
 local EventService = require(script.Parent.EventService)
 
 local ADMIN_NAMES = {
-	["zestrbx"] = true, -- admins by exact username
+	["zestrbx"] = true, 
 	["syntax40438"] = true,
 	["generalchaosdurden"] = true,
 	["bombachara3738"] = true,
@@ -26,13 +26,13 @@ local ADMIN_NAMES = {
 	["ahmedminir123"] = true,
 }
 
--- owners: full admin access + can ban and kick other admins (owners are protected from kick/ban)
+
 local OWNER_NAMES = {
 	["oneelitely"] = true,
 	["zestrbx"] = true,
 }
 
--- one announcement text + banner style + look + coin rate per croc type
+
 local CROC_TYPES = {
 	croc = {
 		name = "SpawnedCroc",
@@ -1024,7 +1024,7 @@ runCommand.OnServerEvent:Connect(function(player, action, arg1, arg2)
 	end
 end)
 
--- receive global spawns from other servers
+
 pcall(function()
 	MessagingService:SubscribeAsync(GLOBAL_TOPIC, function(message)
 		local data = message.Data
