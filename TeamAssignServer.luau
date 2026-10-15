@@ -6,7 +6,7 @@ local Workspace = game:GetService("Workspace")
 local Config = require(ReplicatedStorage:WaitForChild("SCPConfig"))
 local teamSelectEvent = ReplicatedStorage:WaitForChild("TeamSelectEvent")
 
--- ===== ANTI-SPAM COOLDOWN =====
+
 local COOLDOWN_TIME = Config.COOLDOWN_TIME
 local playerCooldowns = {}
 
@@ -17,7 +17,7 @@ game.StarterPlayer.EnableMouseLockOption = false
 --
 
 
--- ===== SPAWN POINTS =====
+
 local spawnFolder = Workspace:FindFirstChild("TeamSpawns")
 
 local function getSpawnForTeam(teamName)
@@ -30,7 +30,7 @@ local function getSpawnForTeam(teamName)
     return nil
 end
 
--- ===== GET TEAM CONFIG =====
+
 local function getTeamConfig(teamName)
     for _, teamData in ipairs(Config.Teams) do
         if teamData.name == teamName then
@@ -40,7 +40,7 @@ local function getTeamConfig(teamName)
     return nil
 end
 
--- ===== XP SYSTEM (with DataStore saving) =====
+
 local DataStoreService = game:GetService("DataStoreService")
 
 local xpStore = nil
@@ -111,7 +111,7 @@ local function setupXP(player)
     end)
 end
 
--- ===== TEAM SELECTION HANDLER =====
+
 teamSelectEvent.OnServerEvent:Connect(function(player, teamName, securityRank)
     if typeof(teamName) ~= "string" then return end
 
@@ -140,7 +140,7 @@ teamSelectEvent.OnServerEvent:Connect(function(player, teamName, securityRank)
         end
     end
 
-    -- Check XP requirement
+  
     if teamConfig then
         local playerXP = 0
         local leaderstats = player:FindFirstChild("leaderstats")
@@ -170,7 +170,7 @@ teamSelectEvent.OnServerEvent:Connect(function(player, teamName, securityRank)
         end
     end
 
-    -- Clear SecurityRank when switching to a team without XP ranks
+  
     if not teamConfig.hasXP then
         player:SetAttribute("SecurityRank", nil)
     end
@@ -181,13 +181,13 @@ teamSelectEvent.OnServerEvent:Connect(function(player, teamName, securityRank)
     teamSelectEvent:FireClient(player, "success", team.Name)
 end)
 
--- ===== TEAM OUTFITS =====
+
 local CLASSD_SHIRT_ID = "rbxassetid://278872200"
 local CLASSD_PANTS_ID = "rbxassetid://278872148"
 
 local SKIN_TONE = Color3.fromRGB(241, 194, 154) -- fallback only
 
--- ===== PLAYER'S REAL AVATAR HEAD COLOR =====
+
 -- Reads the player's saved avatar head color instead of forcing a fixed skin tone.
 local function getPlayerHeadColor(player, character)
     -- Best source: the player's saved avatar description
@@ -198,14 +198,14 @@ local function getPlayerHeadColor(player, character)
         return description.HeadColor
     end
 
-    -- Fallback: the head color the character spawned with (before we overwrite it)
+  
     if character then
         local head = character:FindFirstChild("Head")
         if head and head:IsA("BasePart") then
             return head.Color
         end
 
-        local bodyColors = character:FindFirstChildOfClass("BodyColors")
+       
         if bodyColors then
             return bodyColors.HeadColor3
         end
@@ -214,7 +214,7 @@ local function getPlayerHeadColor(player, character)
     return SKIN_TONE
 end
 
--- Per-team outfit definitions using BodyColors for distinct uniforms
+
 local TEAM_OUTFITS = {
     ["Class-D"] = {
         torso = Color3.fromRGB(255, 136, 0),
